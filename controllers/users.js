@@ -20,9 +20,12 @@ const usersGet = async(req = request , res = response) => {
         count,
         allUsers
       });
-      
+
   }catch(error){
     console.log(error)
+    res.json({
+      error
+    })
   }
 };
 
