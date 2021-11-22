@@ -18,12 +18,8 @@
   
 require('dotenv').config();
 
-const { dbConnection } = require('./database/config')
-
 const Server = require("./models/server");
 
-dbConnection()
-.then(() => {
-  const server = new Server();
-  server.listen();
-}) 
+const server = new Server();
+
+server.listen();
