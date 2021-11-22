@@ -13,11 +13,14 @@ const usersGet = async(req = request , res = response) => {
   //   .limit(Number(limit));
 
   // const count = await Usuario.find().countDocuments(query);
-
-  const [count, allUsers] = await Promise.all([
-    Usuario.countDocuments(query),
-    Usuario.find(query).skip(Number(skip)).limit(Number(limit)),
-  ]).then((values)=> conole.log(values));
+  try {
+    const [count, allUsers] = await Promise.all([
+      Usuario.countDocuments(query),
+      Usuario.find(query).skip(Number(skip)).limit(Number(limit)),
+    ]);
+  } catch (error) {
+    console.log(error)
+  }
 
   res.status(201).json({
     // msg: `create GET APi `,
