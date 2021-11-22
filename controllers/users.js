@@ -7,15 +7,17 @@ const usersGet = async(req = request , res = response) => {
     const { limit= 5, skip = 0 } = req.query;
     const query = { estado:true };
   
-    const [ count, allUsers ] = await Promise.all([
-      Usuario.countDocuments( query ),
-      Usuario.find( query )
-      .skip(Number( skip ))
-      .limit(parseInt( limit )),
-    ]);
+    // const [ count, allUsers ] = await Promise.all([
+    //   Usuario.countDocuments( query ),
+    //   Usuario.find( query )
+    //   .skip(Number( skip ))
+    //   .limit(parseInt( limit )),
+    // ]);
+
+    const allUsers = await Usuario.find({estado: true});
 
     res.status(201).json({
-      count,
+      // count,
       allUsers
     });
 };
