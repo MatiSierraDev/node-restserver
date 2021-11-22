@@ -3,28 +3,27 @@ const bcryp = require('bcryptjs');
 const Usuario = require('../models/user');
 
 const usersGet = async(req = request , res = response) => {
-  //endpoint
-  // const { q, nombre, apikey} = req.query;
+
+  try{
+    
+    const { limit= 5, skip = 0 } = req.query;
+    const query = {estado:true};
   
-  const { limit= 5, skip = 0 } = req.query;
-  const query = {estado:true};
-  const allUsers = await Usuario.find(query)
-    .skip(Number(skip))
-    .limit(Number(limit));
-
-  const count = await Usuario.find().countDocuments(query);
-
-    // const [count, allUsers] = await Promise.all([
-    //   Usuario.countDocuments(query),
-    //   Usuario.find(query)
-    //   .skip(Number(skip))
-    //   .limit(parseInt(limit)),
-    // ]);
-
-    res.json({
-      count,
-      allUsers
-    });
+      const [count, allUsers] = await Promise.all([
+        Usuario.countDocuments(query),
+        Usuario.find(query)
+        .skip(Number(skip))
+        .limit(parseInt(limit)),
+      ]);
+  
+      res.status(201).json({
+        count,
+        allUsers
+      });
+      
+  }catch(error){
+    console.log(error)
+  }
 };
 
 const usersPost = async(req, res = response) => {
