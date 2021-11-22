@@ -8,18 +8,18 @@ const usersGet = async(req = request , res = response) => {
   
   const { limit= 5, skip = 0 } = req.query;
   const query = {estado:true};
-  // const allUsers = await Usuario.find(query)
-  //   .skip(Number(skip))
-  //   .limit(Number(limit));
+  const allUsers = await Usuario.find(query)
+    .skip(Number(skip))
+    .limit(Number(limit));
 
-  // const count = await Usuario.find().countDocuments(query);
+  const count = await Usuario.find().countDocuments(query);
 
-    const [count, allUsers] = await Promise.all([
-      Usuario.countDocuments(query),
-      Usuario.find(query)
-      .skip(Number(skip))
-      .limit(parseInt(limit)),
-    ]);
+    // const [count, allUsers] = await Promise.all([
+    //   Usuario.countDocuments(query),
+    //   Usuario.find(query)
+    //   .skip(Number(skip))
+    //   .limit(parseInt(limit)),
+    // ]);
 
     res.json({
       count,
