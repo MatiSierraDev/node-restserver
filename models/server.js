@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require('cors');
-const { dbConnection } = require("../database/config");
+// const { dbConnection } = require("../database/config");
 
 class Server {
   constructor() {
@@ -9,7 +9,7 @@ class Server {
     this.api = '/api/users';
     
     //db connection
-    this.getDb();
+    // this.getDb();
 
     //midelware
     this.middleware();
@@ -19,11 +19,11 @@ class Server {
   }
 
 
-  async getDb(){
+  // async getDb(){
 
-    await dbConnection();
+  //   await dbConnection();
   
-  }
+  // }
 
   middleware(){
 
