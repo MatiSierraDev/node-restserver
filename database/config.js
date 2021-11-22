@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 
-const dbConnection = () => {
+const dbConnection = async () => {
 
-    mongoose.connect("mongodb+srv://user_node_cafe:D8jl9MOTrbuVVBx6@miclustercafe.q71ma.mongodb.net/cafeDB",
-      {
-        useUnifiedTopology: true,
-      }
-    )
-    .catch((err) => console.log(err.reason));
+  try {
+    await mongoose.connect(process.env.MONGODB_CNN)
+    .then(res => console.log('Conectado a la base de datos!'));
+  
+  } catch (error) {
+    throw new Error('Error a la hora de inicializar el proceso')
+  }
+
 }
 
 module.exports = {
