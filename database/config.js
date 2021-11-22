@@ -1,10 +1,9 @@
-require("dotenv").config();
 const mongoose = require('mongoose');
 
 const dbConnection = async () => {
-  
+
   try {
-    await mongoose.connect(process.env.MONGODB_CNN);
+    await mongoose.connect('mongodb+srv://user_node_cafe:D8jl9MOTrbuVVBx6@miclustercafe.q71ma.mongodb.net/cafeDB');
 
     console.log("Conectado a la base de datos")
   
