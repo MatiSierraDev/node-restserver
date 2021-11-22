@@ -14,23 +14,26 @@ const usersGet = async(req = request , res = response) => {
 
   // const count = await Usuario.find().countDocuments(query);
   try {
+
     const [count, allUsers] = await Promise.all([
       Usuario.countDocuments(query),
       Usuario.find(query).skip(Number(skip)).limit(Number(limit)),
     ]);
+
+    return res.status(201).json({
+      // msg: `create GET APi `,
+      // q,
+      // nombre,
+      // apikey
+      // resp
+      count,
+      allUsers
+    });
+
   } catch (error) {
     console.log(error)
   }
 
-  res.status(201).json({
-    // msg: `create GET APi `,
-    // q,
-    // nombre,
-    // apikey
-    // resp
-    count,
-    allUsers
-  });
 };
 
 const usersPost = async(req, res = response) => {
