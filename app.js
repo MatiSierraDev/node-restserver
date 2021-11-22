@@ -20,6 +20,22 @@ require('dotenv').config();
 
 const Server = require("./models/server");
 
-const server = new Server();
+const mongoose = require("mongoose");
 
-server.listen();
+const dbConnection = async () => {
+  try {
+    
+    await mongoose.connect(process.env.MONGODB_CNN);
+    
+    console.log("Conectado a la base de datos!");
+    
+    const server = new Server();
+    
+    server.listen();
+
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+dbConnection();
