@@ -21,19 +21,24 @@ const Server = require("./models/server");
 require('dotenv').config();
 
   // const { dbConnection } = require("./database/config")
+const db = async () =>{
+
+    try {
+      await mongoose.connect(
+        "mongodb+srv://user_node_cafe:D8jl9MOTrbuVVBx6@miclustercafe.q71ma.mongodb.net/cafeDB?"
+      );
+      console.log("Conectado a la base de datos.");
   
-  mongoose
-  .connect(process.env.MONGODB_CNN)
-  .then( () => {
-
-    console.log("Conectado a la base de datos.");
-    
-    const server = new Server()
-    
-    server.listen();
-    
-  }).catch((err) => { console.log(err)})
-
+      const server = new Server();
+  
+      server.listen();
+  
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  db()
 
 // dbConnection()
 //   .then( ()=> {
