@@ -7,7 +7,7 @@ const dbConnection = async () => {
     .then(res => console.log('Conectado a la base de datos!'));
   
   } catch (error) {
-    throw new Error('Error a la hora de inicializar el proceso')
+    throw new Error(error)
   }
 
 }
