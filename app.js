@@ -18,20 +18,6 @@
   
 require('dotenv').config();
 
-const mongoose = require('mongoose');
-
-const uri = process.env.MONGODB_CNN;
-
-try{
-  
-  mongoose
-  .connect(uri)
-  console.log('db')
-
-}catch(error){
-  console.log(error)
-}
-
 const Server = require("./models/server");
 
 const server = new Server();
