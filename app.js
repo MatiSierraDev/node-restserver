@@ -16,36 +16,10 @@
   //   console.log(`Listen on port: ${port}`)
   // });
   
-const mongoose = require("mongoose");
-const Server = require("./models/server");
 require('dotenv').config();
 
-  // const { dbConnection } = require("./database/config")
-const db = async () =>{
+const Server = require("./models/server");
 
-    try {
-      await mongoose.connect(
-        "mongodb+srv://user_node_cafe:D8jl9MOTrbuVVBx6@miclustercafe.q71ma.mongodb.net/cafeDB?"
-      );
-      console.log("Conectado a la base de datos.");
-  
-      const server = new Server();
-  
-      server.listen();
-  
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  
-  db()
+const server = new Server();
 
-// dbConnection()
-//   .then( ()=> {
-    
-//     const Server = require("./models/server");
-    
-//     const server = new Server();
-    
-//     server.listen();
-//   }).catch((err) => console.log(err));
+server.listen();
