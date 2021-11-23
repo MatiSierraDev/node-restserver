@@ -9,7 +9,7 @@ class Server {
     this.api = '/api/users';
     
     //db connection
-    this.getDb();
+    // this.getDb();
 
     //midelware
     this.middleware();
