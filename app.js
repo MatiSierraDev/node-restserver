@@ -16,15 +16,31 @@
   //   console.log(`Listen on port: ${port}`)
   // });
   
+const mongoose = require("mongoose");
+const Server = require("./models/server");
 require('dotenv').config();
-const { dbConnection } = require("./database/config")
 
-dbConnection()
-  .then( ()=> {
+  // const { dbConnection } = require("./database/config")
+  
+  mongoose
+  .connect(process.env.MONGODB_CNN)
+  .then( () => {
+
+    console.log("Conectado a la base de datos.");
     
-    const Server = require("./models/server");
-    
-    const server = new Server();
+    const server = new Server()
     
     server.listen();
-  }).catch((err) => console.log(err));
+    
+  }).catch((err) => { console.log(err)})
+
+
+// dbConnection()
+//   .then( ()=> {
+    
+//     const Server = require("./models/server");
+    
+//     const server = new Server();
+    
+//     server.listen();
+//   }).catch((err) => console.log(err));
