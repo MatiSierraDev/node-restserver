@@ -4,11 +4,11 @@ const { dbConnection } = require("../database/config");
 
 class Server {
   constructor() {
-    this.app = express();
     this.port = process.env.PORT || 3000;
+    this.app = express();
     
     this.api = '/api/users';
-    this.auth = '/auth';
+    this.auth = '/api/auth';
     
     //db connection
     this.getDb();

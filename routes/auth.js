@@ -10,6 +10,7 @@ router.post(
   "/login",
   [
     check("correo", "No es un correo valido").isEmail(),
+    check("password", "La contraseña es obligatorio").not().isEmpty(),
     check("password", "El password debe ser de al menos 5 caracteres").isLength({ min: 5 }),
     validarCampos,
   ],
