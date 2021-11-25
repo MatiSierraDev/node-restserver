@@ -12,14 +12,14 @@ const postLogin = async(req = request , res = response) =>{
   const usuario= await Usuario.findOne({ correo });
 
   if(!usuario){
-    return res.status(500).json({
+    return res.status(400).json({
       msg: `El mail: "${correo}" ingresado no existe.`
     })
   }
 
   // validacion de usuario activo(estado)
   if(!usuario.estado){
-    return res.status(500).json({
+    return res.status(400).json({
       msg: `El usuario no existe.`,
     });
   }
@@ -28,7 +28,7 @@ const postLogin = async(req = request , res = response) =>{
   const passwordCompare = brcrypjs.compareSync(password, usuario.password);
 
   if (!passwordCompare){
-    return res.status(500).json({
+    return res.status(400).json({
       msg: "Contraseña invalida."
     })
   }
