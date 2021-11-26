@@ -7,7 +7,6 @@ const postLogin = async(req = request , res = response) =>{
 
   const  {correo, password} = req.body;
 
-
   // validacion de correo(existe)
   const usuario= await Usuario.findOne({ correo });
 
