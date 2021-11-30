@@ -12,7 +12,7 @@ const postLogin = async(req = request , res = response) =>{
   try{
 
     // validacion de correo(existe)
-    const usuario= await Usuario.findOne({ correo });
+    const usuario = await Usuario.findOne({ correo });
 
     if(!usuario){
       return res.status(400).json({
@@ -37,14 +37,13 @@ const postLogin = async(req = request , res = response) =>{
     }
   
     //generando JWT
-    const  uid  = usuario.id
     const token = await generarJWT(usuario.id)
-    const { nombre } = usuario;
+    const { nombre} = usuario;
 
     res.status(200).json({
+      usuario,
       nombre,
-      token,
-      uid
+      token
     });
 
   }catch(err){
