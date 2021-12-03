@@ -74,7 +74,7 @@ const usersDelete = async(req, res = response) => {
   //endpoint
 
   const { id } = req.params;
-  const usuarioAutenticado = req.usuarioAutenticado;
+  // const usuarioAutenticado = req.usuarioAutenticado;
   const query = {estado: false};
   
   //Borrado fisico
@@ -83,9 +83,9 @@ const usersDelete = async(req, res = response) => {
   const userDelete = await Usuario.findByIdAndUpdate( id, query)
 
   res.status(201).json({
-    userDelete,
+    // userDelete,
     msg: `El usuario con el id: ${id} ah sido eliminado.`,
-    usuarioAutenticado
+    // usuarioAutenticado
   });
 };
 
