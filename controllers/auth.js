@@ -1,9 +1,12 @@
 const { response, request } = require("express");
+
 const Usuario = require('../models/user');
 
 const brcrypjs = require('bcryptjs');
 
 const { generarJWT } = require("../helpers/generar-jwt");
+const { googleJWT } = require("../helpers/google-jwt");
+
 
 const postLogin = async(req = request , res = response) =>{
 
@@ -55,6 +58,57 @@ const postLogin = async(req = request , res = response) =>{
   }
 }
 
+const googleToken = async(req = request, res = response ) => {
+  
+  const { id_token } = req.body;
+  
+  try{
+    
+    // const googleUser = await googleJWT(id_token);
+    // console.log( googleUser )
+
+    const { nombre, img, correo } = await googleJWT(id_token);
+    //Busco usuario por correo
+    let usuario = await Usuario.findOne({ correo })
+    
+    //sino existe lo creo con las credencales de los servicios de google
+    if(!usuario){
+
+      const data = {
+        nombre,
+        img,
+        correo,
+        password: ':P',
+        google: true
+      }
+
+      //Creo un nuveo usuario
+      usuario = new Usuario(data);
+      
+      //Guardar en la base de datos
+      await usuario.save();
+    }
+
+    const token = await generarJWT(usuario.id);
+
+    res.status(200).json({
+       msg: 'Usuario de google verificado correctamente',
+       usuario,
+       token
+      }
+    )
+
+  }catch(err){
+    console.log(err)
+
+    res.status(404).json({
+      msg: `${err}`
+    })
+  }
+
+}
+
 module.exports = {
-  postLogin
+  postLogin,
+  googleToken
 }

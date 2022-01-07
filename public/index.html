@@ -5,11 +5,89 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acceso denegado</title>
+  <!-- <meta name="google-signin-client_id"
+    content="75761490953-qjlpqdpbidhn8qp5t5pdcif4f7cquksv.apps.googleusercontent.com"> -->
+  <title>Google sign in</title>
 </head>
 
 <body>
-  <h1>Acceso denegado</h1>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <!-- <h1>Google Sign in</h1>
+  <hr /> -->
+
+  <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+  <a href="#" onclick="signOut();">Sign out</a>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+
+
+  <div id="g_id_onload" data-client_id="75761490953-qjlpqdpbidhn8qp5t5pdcif4f7cquksv.apps.googleusercontent.com"
+    data-callback="handleCredentialResponse" data-auto_prompt="false" data-auto_select="true">
+  </div>
+
+  <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+    data-shape="rectangular" data-logo_alignment="left">
+  </div>
+  <div class="g_id_signout">
+    <button id="signout_button" disabled='true'>
+      Sign Out
+    </button>
+  </div>
+
+  <script>
+
+    function handleCredentialResponse(response) {
+
+      //verifico si estoy en desarrollo o en produccion
+      // console.log(window.location.hostname.includes('localhost'))
+      let url = window.location.hostname.includes('localhost')
+        ? 'http://localhost:8000/api/auth/google'
+        : 'https://restserver-webserver-app.herokuapp.com/api/auth/google'
+
+      const body = { id_token: response.credential }
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      })
+        .then(r => r.json())
+        .then(resp => {
+
+          let btn = document.getElementById('signout_button')
+          button.disabled = false;
+
+          console.log(resp)
+
+          //para poder hacer uso del logout de la persona que se autentico necesito el email
+          localStorage.setItem('email', resp.usuario.correo)
+        })
+        .catch((err) => console.log(err))
+    }
+
+    const button = document.getElementById('signout_button');
+
+    button.onclick = () => {
+
+      // console.log(google.accounts.id)
+
+      google.accounts.id.disableAutoSelect();
+
+      google.accounts.id.revoke(localStorage.getItem('email'), done => {
+        localStorage.clear();
+        location.reload();
+      })
+
+      button.disabled = true;
+
+    }
+
+  </script>
+
 </body>
 
 </html>
